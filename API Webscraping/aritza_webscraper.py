@@ -35,7 +35,7 @@ def main():
     all_data(tdTags)
     duration = time.time() - start_time
     print(f"The program run for {duration} seconds")
-    with open('convert.txt', 'w') as convert_file: 
+    with open('artiza.json', 'w') as convert_file: 
         convert_file.write(json.dumps(allclothes))
 
 main()
