@@ -6,13 +6,13 @@ import json
 import time
 
 
-numclothes = 100
+numclothes = 10
 MAX_THREADS = 30
 
-tags = ["title", "url", "image", "site_name", "price:amount"]
 allclothes = dict()
 
 def grab_data(url):
+    tags = ["title", "url", "image", "site_name", "price:amount"]
     webpage = urlopen(url).read()
     soup = BeautifulSoup(webpage, "lxml")
     data = dict()
@@ -35,5 +35,7 @@ def main():
     all_data(tdTags)
     duration = time.time() - start_time
     print(f"The program run for {duration} seconds")
+    with open('artiza.json', 'w') as convert_file: 
+        convert_file.write(json.dumps(allclothes))
 
 main()
