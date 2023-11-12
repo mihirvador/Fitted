@@ -29,7 +29,7 @@ def grab_data(product):
     data["site_name"] = site_name
     data["price:amount"] = price
     allclothes[data["title"]] = data
-    # print(data, "\n\n")
+    # print(data, "\n\n") #
 
 def all_data(products):
     threads = min(MAX_THREADS, len(products))
@@ -46,14 +46,14 @@ def main():
     print(response.status_code)
     soup = BeautifulSoup(response.content, 'html.parser')
     elements = soup.find("ul", {"class" : "c-pwa-radio-boxes__list c-pwa-radio-boxes__list--default"})
-    products = elements.find_all("article", {"class" : "o-pwa-product-tile"})
+    products = elements.find_all("article", {"class" : "c-pwa-tile-grid-tile"})
     all_data(products)
     # men
     response = requests.get('https://www.urbanoutfitters.com/mens-clothing#u-skip-anchor' + str(numclothes/2), headers=headers)
     print(response.status_code)
     soup = BeautifulSoup(response.content, 'html.parser')
     elements = soup.find("ul", {"class" : "c-pwa-radio-boxes__list c-pwa-radio-boxes__list--default"})
-    products = elements.find_all("article", {"class" : "o-pwa-product-tile"})
+    products = elements.find_all("article", {"class" : "c-pwa-tile-grid-tile"})
     all_data(products)
 
     duration = time.time() - start_time
