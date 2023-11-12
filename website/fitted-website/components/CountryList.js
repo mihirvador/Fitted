@@ -10,18 +10,36 @@ export default function CountryList() {
   }, []);
 
   const fetchCountries = async () => {
-    const { data: countries } = await supabase
-      .from('countries')
-      .select('*')
-      .order('name', true);
-    setCountries(countries);
+    try {
+      const { data: countries, error } = await supabase
+        .from('countries')
+        .select('*')
+        .order('name', true);
+
+      if (error) {
+        // Handle the error, e.g., log it or show an error message
+        console.error('Error fetching countries:', error.message);
+        return;
+      }
+
+      // Set countries only if the data is available
+      if (countries) {
+        setCountries(countries);
+      }
+    } catch (error) {
+      console.error('Error fetching countries:', error.message);
+    }
   };
 
   return (
     <div>
-      {countries.map((country) => (
-        <li key={country.id}>{country.name}</li>
-      ))}
+      {countries.length > 0 ? (
+        countries.map((country) => (
+          <li key={country.id}>{country.name}</li>
+        ))
+      ) : (
+        <p>No countries available</p>
+      )}
     </div>
   );
 }
