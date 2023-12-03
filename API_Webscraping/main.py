@@ -4,7 +4,6 @@ from .models import Product
 from .crud import create_entry
 from .schema import ProductSchema
 from cassandra.cqlengine.management import sync_table
-import json
 currProduct = Product
 app = FastAPI()
 
@@ -38,6 +37,6 @@ def products_detail_view(title):
         return "Not Found"
     
 @app.post("/input")
-def site_name_list_view(data : json):
+def site_name_list_view(data : dict):
     product = create_entry(data)
     return product
