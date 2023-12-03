@@ -39,6 +39,5 @@ def products_detail_view(title):
     
 @app.post("/input")
 def site_name_list_view(data):
-    print(data)
-    product = create_entry(data.dict())
+    product = create_entry(data)
     return product
