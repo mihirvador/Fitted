@@ -1,3 +1,4 @@
 .env
 secure-connect-fitted.zip
 */ignored
+*/__pycache__

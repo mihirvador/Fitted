@@ -12,4 +12,4 @@ class Product(Model):
     title = columns.Text(partition_key = True, primary_key=True, required=True)
     url = columns.Text()
     image = columns.Text()
-    site_name = columns.Text(primary_key=True, required=True)
+    site_name = columns.Text(index=True, required=True)
