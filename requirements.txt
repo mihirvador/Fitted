@@ -3,3 +3,4 @@ cassandra_driver==3.28.0
 fastapi==0.104.1
 pydantic_settings==2.1.0
 Requests==2.31.0
+uvicorn==0.24.0.post1
