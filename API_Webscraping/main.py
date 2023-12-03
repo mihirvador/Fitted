@@ -6,7 +6,7 @@ from crud import create_entry
 from cassandra.cqlengine.management import sync_table
 
 settings = get_settings()
-Product = Product
+currProduct = Product
 app = FastAPI()
 
 session = None
@@ -15,7 +15,7 @@ session = None
 def on_startup():
     global session
     session = get_session()
-    sync_table(Product)
+    sync_table(currProduct)
 
 @app.get("/")
 def read_index():
