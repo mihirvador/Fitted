@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from .db import get_session
-from .models import Product
-from .crud import create_entry
+from API_Webscraping.dbs import get_session
+from API_Webscraping.models import Product
+from API_Webscraping.crud import create_entry
 from cassandra.cqlengine.management import sync_table
 
 currProduct = Product
