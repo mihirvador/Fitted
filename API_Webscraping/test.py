@@ -9,5 +9,7 @@ data = {
     'image': 'IMAGEURL',
     'site_name': 'SITENAME'
 }
+
+print(ProductSchema.model_validate(data, strict=True))
 out = requests.post(url+"input", data=data)
 print(out.json())
