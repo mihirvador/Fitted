@@ -2,8 +2,6 @@ from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 from cassandra.cqlengine.connection import register_connection, set_default_connection
 import os
-from dotenv import load_dotenv
-load_dotenv("API_Webscraping/process.env")
 
 CQLENG_ALLOW_SCHEMA_MANAGEMENT=1
 
@@ -16,7 +14,8 @@ CQLENG_ALLOW_SCHEMA_MANAGEMENT=1
 
 CLUSTER_BUNDLE = "API_Webscraping/secure-connect-fitted.zip"
 
-CLIENT_ID = os.environ['clientId']
+CLIENT_ID = os.environ.get('clientId')
+print(CLIENT_ID)
 CLIENT_SECRET = os.environ.get('secret')
 
 
