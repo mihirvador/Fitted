@@ -2,7 +2,7 @@ from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 from cassandra.cqlengine.connection import register_connection, set_default_connection
 import pathlib
-from . import config
+from config import get_settings
 
 CQLENG_ALLOW_SCHEMA_MANAGEMENT=1
 
@@ -16,7 +16,7 @@ CQLENG_ALLOW_SCHEMA_MANAGEMENT=1
 BASE_DIR = pathlib.Path(__file__).parent
 CLUSTER_BUNDLE = str(BASE_DIR / "ignored" / "secure-connect-fitted.zip")
 
-settings = config.get_settings()
+settings = get_settings()
 CLIENT_ID = settings.db_client_id
 CLIENT_SECRET = settings.db_client_secret
 

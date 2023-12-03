@@ -1,9 +1,12 @@
 from fastapi import FastAPI
-from . import config, db, models, crud
+from config import get_settings
+from db import get_session
+from models import Product
+from crud import create_entry
 from cassandra.cqlengine.management import sync_table
 
-settings = config.get_settings()
-Product = models.Product
+settings = get_settings()
+Product = Product
 app = FastAPI()
 
 session = None
@@ -11,7 +14,7 @@ session = None
 @app.on_event("startup")
 def on_startup():
     global session
-    session = db.get_session()
+    session = get_session()
     sync_table(Product)
 
 @app.get("/")
@@ -35,5 +38,5 @@ def products_detail_view(title):
     
 @app.post("/input")
 def site_name_list_view(data):
-    product = crud.create_entry(data.dict())
+    product = create_entry(data.dict())
     return product
