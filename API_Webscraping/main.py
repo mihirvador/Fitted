@@ -1,11 +1,9 @@
 from fastapi import FastAPI
-from config import get_settings
 from db import get_session
 from models import Product
 from crud import create_entry
 from cassandra.cqlengine.management import sync_table
 
-settings = get_settings()
 currProduct = Product
 app = FastAPI()
 
