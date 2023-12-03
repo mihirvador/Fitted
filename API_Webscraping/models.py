@@ -4,6 +4,7 @@ from cassandra.cqlengine.models import Model
 #     "title": "TITLE",
 #     "url": "URL",
 #     "image": "IMAGEURL",
+#     "price": "PRICE"
 #     "site_name": "SITENAME"
 # }
 
@@ -12,4 +13,5 @@ class Product(Model):
     title = columns.Text(partition_key = True, primary_key=True, required=True)
     url = columns.Text()
     image = columns.Text()
+    price = columns.Text()
     site_name = columns.Text(index=True, required=True)

@@ -1,3 +1,4 @@
 process.env
 */ignored
 */__pycache__
+.env

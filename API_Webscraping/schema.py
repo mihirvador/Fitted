@@ -5,4 +5,5 @@ class ProductSchema(BaseModel):
     title: str
     url: Optional[str]
     image: Optional[str]
+    price: Optional[str]
     site_name: Optional[str]
