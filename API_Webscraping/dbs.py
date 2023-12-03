@@ -15,7 +15,6 @@ CQLENG_ALLOW_SCHEMA_MANAGEMENT=1
 CLUSTER_BUNDLE = "API_Webscraping/secure-connect-fitted.zip"
 
 CLIENT_ID = os.environ.get('clientId')
-print(CLIENT_ID)
 CLIENT_SECRET = os.environ.get('secret')
 
 
