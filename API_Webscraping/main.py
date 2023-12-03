@@ -13,6 +13,7 @@ session = None
 def on_startup():
     global session
     session = get_session()
+    print(str(session))
     sync_table(currProduct)
 
 @app.get("/")
