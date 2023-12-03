@@ -1,14 +1,10 @@
 from urllib.request import urlopen
 import requests
 from bs4 import BeautifulSoup
-import json
+from schema import ProductSchema
 
-
-
-numclothes = 10
 url_header = "https://www2.hm.com"
-
-allclothes = dict()
+apiurl = ""
 
 def grab_data(product):
     title = product.find("a", attrs={"class" : "link"}).contents[0]
@@ -24,43 +20,17 @@ def grab_data(product):
     data["url"] = url
     data["image"] = "https:" + image
     data["site_name"] = site_name
-    data["price:amount"] = price
-    allclothes[data["title"]] = data
-    # print(data, "\n\n")
-
-# def grab_data(url):
-#     url = "https://www2.hm.com" + url
-#     try:
-#         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'}
-#         response = requests.get(url, headers=headers)
-#         print("Response code: ", response.status_code)
-#         webpage = response.text
-#         soup = BeautifulSoup(webpage, "lxml")
-#         # opened = urlopen(response)
-#         # print("Response code: ", opened.getcode())
-#         # webpage = opened.read()
-#     except Exception as error: # 404, 500, etc..
-#         print("ERROR: ", error)
-#         pass
-
-#     # print("\n\nwebpage: \n\n", webpage)
-#     # soup = BeautifulSoup(webpage, "lxml")
-#     # print("soup: \n" + str(soup))
-#     data = dict()
-#     for tag in property_tags:
-#         # print("\n", tag)
-#         data[tag] = soup.find("meta", property="og:"+tag)["content"]
-#         print("\nTag ", tag, data[tag])
-#     data[image_tag] = soup.find("meta", name="og:"+image_tag)["content"]
-#     data[price_tag] = soup.find("span", {"class" : "edbe20 ac3d9e"})
-#     print("data : " + str(data))
-#     allclothes[data["title"]] = data
+    data["price"] = price
+    ProductSchema.model_validate(data, strict=True)
+    requests.post(apiurl+"input", json=data)
 
 def all_data(products):
     for product in products:
         grab_data(product)
 
-def main():
+def hm(numclothes : int, _apiurl : str):
+    global apiurl
+    apiurl = _apiurl
     # needed to add user agent to access
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'}
     # women
@@ -75,8 +45,3 @@ def main():
     elements = soup.find("ul", {"class" : "products-listing small"})
     products = elements.find_all("article", {"class" : "hm-product-item"})
     all_data(products)
-
-    with open("hm.json", "w") as outfile: 
-        json.dump(allclothes, outfile)
-
-main()
