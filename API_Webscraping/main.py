@@ -18,6 +18,7 @@ def on_startup():
 
 @app.get("/")
 def read_index():
+    print("sucess")
     return "Uh Oh! Why are You here!"
 
 @app.get("/title")
