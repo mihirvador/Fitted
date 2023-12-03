@@ -27,6 +27,8 @@ def all_data(allurls):
         grab_data(link.get("href"), price)
 
 def asos(numclothes : int, _apiurl : str):
+    global apiurl
+    apiurl = _apiurl
     alldata = []
     # men
     url = "https://www.asos.com/us/men/a-to-z-of-brands/cat/?cid=1361"
