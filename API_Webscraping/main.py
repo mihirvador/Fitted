@@ -37,6 +37,6 @@ def products_detail_view(title):
         return "Not Found"
     
 @app.post("/input")
-def site_name_list_view(data):
-    product = create_entry(data.dict())
+def site_name_list_view(data: dict):
+    product = create_entry(data)
     return product
