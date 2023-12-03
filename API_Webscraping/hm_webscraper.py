@@ -1,14 +1,11 @@
 from urllib.request import urlopen
 import requests
 from bs4 import BeautifulSoup
-import concurrent.futures
 import json
-import time
 
 
 
 numclothes = 10
-MAX_THREADS = 30
 url_header = "https://www2.hm.com"
 
 allclothes = dict()
@@ -60,15 +57,12 @@ def grab_data(product):
 #     allclothes[data["title"]] = data
 
 def all_data(products):
-    threads = min(MAX_THREADS, len(products))
-    with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as executor:
-        for product in products:
-            executor.submit(grab_data, product)
+    for product in products:
+        grab_data(product)
 
 def main():
     # needed to add user agent to access
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'}
-    start_time = time.time()
     # women
     response = requests.get('https://www2.hm.com/en_us/women/products/view-all.html?sort=stock&image-size=small&image=model&offset=0&page-size=' + str(numclothes/2), headers=headers)
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -82,11 +76,7 @@ def main():
     products = elements.find_all("article", {"class" : "hm-product-item"})
     all_data(products)
 
-    duration = time.time() - start_time
-
     with open("hm.json", "w") as outfile: 
         json.dump(allclothes, outfile)
-
-    print(f"The program run for {duration} seconds")
 
 main()
