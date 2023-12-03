@@ -14,7 +14,7 @@ CQLENG_ALLOW_SCHEMA_MANAGEMENT=1
 # if yours is different update the file name below
 
 BASE_DIR = pathlib.Path(__file__).parent
-CLUSTER_BUNDLE = str(BASE_DIR / "ignored" / "secure-connect-fitted.zip")
+CLUSTER_BUNDLE = str(BASE_DIR / "secure-connect-fitted.zip")
 
 settings = get_settings()
 CLIENT_ID = settings.db_client_id
